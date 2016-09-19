@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+	<style>
+		#canvas{
+			background-color: #333;
+			border-radius: 9px;
+		}
+		/*#canvas{
+			width: 400px;
+			height: 400px;
+			background-color: #333;
+		}*/
+		/*
+		  上面定义canvas宽高的方法是无效的，因为canvas是基于像素点渲染的，它的渲染可以说完全依赖于
+		  imageData，如果不通过canvas而直接改变canvas尺寸，那么imageData里的数据将完全无效。
+		  那么为什么用css设置宽高会发生变形呢？
+		  通常一个未设置尺寸的canvas元素是有一个默认宽高的，为300px * 150px。
+		  具体可以看：http://www.zhouhua.info/2014/12/23/canvassize/
+		*/
+	</style>
+</head>
+<body>
+	<div>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	</div>
+	<script>
+		window.onload = function(){
+			var cvs = document.getElementById("canvas");
+			var ctx = cvs.getContext("2d");
+			var radius = cvs.height/2;
+			ctx.translate(radius,radius);
+			radius = radius*0.9;
+			ctx.arc(0,0,radius,0,2*Math.PI);
+			ctx.fillStyle = "white";
+			ctx.fill();
+		}
+	</script>
+</body>
+</html>
