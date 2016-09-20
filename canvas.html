@@ -27,13 +27,20 @@
 	<canvas id="canvas" width="400" height="400"></canvas>
 	</div>
 	<script>
-		window.onload = function(){
-			var cvs = document.getElementById("canvas");
-			var ctx = cvs.getContext("2d");
-			var radius = cvs.height/2;
-			ctx.translate(radius,radius);
-			radius = radius*0.9;
+		var cvs = document.getElementById("canvas");
+		var ctx = cvs.getContext("2d");
+		var radius = cvs.height/2;
+		ctx.translate(radius,radius);
+		radius = radius*0.9;
+		//start
+		setInterval(drawClock,1000);
 
+		function drawClock(){
+			drawFace(ctx,radius);
+			drawNumbers(ctx,radius);
+			drawTime(ctx,radius);
+		}
+		function drawFace(ctx,radius){
 			//Draw Clock Face
 			ctx.beginPath();
 			ctx.arc(0, 0, radius, 0, 2*Math.PI);
@@ -53,7 +60,9 @@
 			ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
 			ctx.fillStyle = "#333";
 			ctx.fill();
+		}
 
+		function drawNumbers(ctx,radius){
 			//Draw Clock Numbers
 			var ang,num;
 			ctx.font = radius*0.15 + "px Arial";
@@ -69,7 +78,9 @@
 				ctx.translate(0, radius*0.85);
 				ctx.rotate(-ang);
 			}
+		}
 
+		function drawTime(ctx,radius){
 			//Draw Clock Hands
 			var now = new Date();
 			var hour = now.getHours();
@@ -85,18 +96,19 @@
 			//second
 			second = (second*Math.PI/30);
 			drawHand(ctx, second, radius*0.9, radius*0.02);
-
-			function drawHand(ctx,pos,length,width){
-				ctx.beginPath();
-				ctx.lineWidth = width;
-				ctx.lineCap = "round";
-				ctx.moveTo(0,0);
-				ctx.rotate(pos);
-				ctx.lineTo(0,-length);
-				ctx.stroke();
-				ctx.rotate(-pos);			
-			}
 		}
+
+		function drawHand(ctx,pos,length,width){
+			ctx.beginPath();
+			ctx.lineWidth = width;
+			ctx.lineCap = "round";
+			ctx.moveTo(0,0);
+			ctx.rotate(pos);
+			ctx.lineTo(0,-length);
+			ctx.stroke();
+			ctx.rotate(-pos);			
+		}
+		
 	</script>
 	<!-- 
 		记一个问题：
